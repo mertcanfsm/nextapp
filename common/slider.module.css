@@ -1,78 +1,42 @@
-/* Wrapper */
 .slider {
-    position: relative;
+    width: 80%;
+    text-align: center;
     overflow: hidden;
 }
 
-/* Slide div */
-.slide {
-    width: 100%;
-    height: 100%;
-    padding-left: 10%;
-    padding-right: 10%;
-    position: absolute;
-    z-index: -1;
-    transition: left 1s ease;
+.wrapper {
+    white-space: nowrap;
+    transition: margin-left 0.5s ease;
 }
 
-/* Image */
-.slideImg {
-    width: 100%;
-    height: 100%;
-}
-
-/* Caption text */
-.text {
-    position: absolute;
-    top: 60%;
-    width: 80%;
-    text-align: center;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.678);
-    padding: 10px;
-    user-select: text;
-}
-
-/* Arrows area */
 .arrow {
+    position: absolute;
     cursor: pointer;
     text-align: center;
-    position: absolute;
-    width: 10%;
-    height: 100%;
-}
-.arrow:hover {
-    background-color: rgba(128, 128, 128, 0.04);
-}
-.prev {
-    left: 0;
-}
-.next {
-    right: 0;
-}
-
-/* Arrows symbol */
-.arrows {
-    cursor: pointer;
-    text-align: center;
-    position: absolute;
-    font-weight: bold;
-    font-size: 18px;
     user-select: none;
-}
-.arrowLeft {
-    left: 4%;
-    top: 50%;
-}
-.arrowRight {
-    right: 4%;
-    top: 50%;
+    width: 50px;
+    top: 48%;
+    background-color: rgba(240, 248, 255, 0.4);
+    transition: background-color 0.5s ease;
+    z-index: 1;
 }
 
-/* Indicators */
+.arrow:hover {
+    background-color: rgba(128, 128, 128, 0.4);
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
 .dots {
     margin: auto;
 }
+
 .dot {
     cursor: pointer;
     user-select: none;
@@ -83,6 +47,7 @@
     background-color: #bbb;
     border-radius: 50%;
 }
+
 .dotActive, .dot:hover {
     background-color: #717171;
 }

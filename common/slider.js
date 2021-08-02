@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './slider.module.css';
+import Slide from './slide';
 
 function Slider(props) {
   const [active, setActive] = useState(0);
@@ -17,49 +18,41 @@ function Slider(props) {
     return () => clearInterval(interval);
   });
 
+  const marginLeft = -1 * active * (parseInt(props.width)+20);
+
   return (
-    <div className={styles.slider} style={{width: props.width, height: props.height}}>
+      <div className={styles.slider}>
 
-      {/* Wrapper for slides */}
-      {props.slides.map((slide,index) => {
+        {/* Slides */}
+        <div className={styles.wrapper} style={{marginLeft: marginLeft}}>
+          {props.slides.map(slide => {
+            return (
+              <Slide key={slide.src} src={slide.src} alt={slide.alt} text={slide.text}
+              width={props.width} height={props.height} imgHeight={props.imgHeight} />
+            );
+          })}
+        </div>
 
-        // hSet image positions
-        let left;
-        if(index == active) left = "0%"; // Visible middle
-        else if(index < active) left = "-100%"; // Hidden left
-        else left = "100%"; // Hidden rigt
+        {/* Left button */}
+        <span className={styles.arrow+" "+styles.prev} onClick={() => {
+            if(active == 0) setActive(amount-1);
+            else setActive(active-1);
+        }}>&#10094;</span>
+
+        {/* Right button */}
+        <span className={styles.arrow+" "+styles.next} onClick={() => {
+            if(active == amount-1) setActive(0);
+            else setActive(active+1);
+        }}>&#10095;</span>
+
+        {/* Indicators */}
+        <div className={styles.dots}>
+          {props.slides.map((slide,index) =>
+            <span key={slide.src} className={styles.dot+" "+(slide == activeSlide ? styles.dotActive : "")}
+            onClick={() => setActive(index)}></span>
+          )}
+        </div>
         
-        // Only image and neighbors should be visible
-        let visibility = (index == active || index == active-1 || index == active+1) ? "visible" : "hidden";
-
-        return (
-          <div className={styles.slide} style={{left: left, visibility: visibility}} >
-            <img className={styles.slideImg} src={slide.src} alt={slide.alt} />
-            <p className={styles.text}>{slide.text}</p>
-          </div>
-        )})}
-       
-      {/* Left and right controls */}
-      <span className={styles.arrows+" "+styles.arrowLeft}>&#10094;</span>
-      <span className={styles.arrow+" "+styles.prev} onClick={() => {
-          if(active == 0) setActive(amount-1);
-          else setActive(active-1);
-      }}></span>
-
-      <span className={styles.arrows+" "+styles.arrowRight}>&#10095;</span>
-      <span className={styles.arrow+" "+styles.next} onClick={() => {
-          if(active == amount-1) setActive(0);
-          else setActive(active+1);
-      }}></span>
-
-      {/* Indicators */}
-      <div className={styles.dots} style={{width: 20*amount, paddingTop: parseInt(props.height)-25}}>
-        {props.slides.map((slide,index) =>
-          <span className={styles.dot+" "+(activeSlide == slide ? styles.dotActive : "")}
-          onClick={() => setActive(index)}></span>
-        )}
-      </div>
-
     </div>
   );
 }

@@ -1,0 +1,8 @@
+.slide {
+    display: inline-block;
+    background-color: aliceblue;
+    border-radius: 20px;
+    margin: 10px;
+    overflow: hidden;
+    white-space: normal;
+}
